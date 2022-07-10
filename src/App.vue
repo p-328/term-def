@@ -1,26 +1,23 @@
 <template>
-  <img alt="Vue logo" src="./assets/logo.png">
-  <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <DefinitionForm />
+  <div class="definition-board">
+    <DefinitionList />
+  </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorld
+  import DefinitionForm from './components/DefinitionForm.vue';
+  import DefinitionList from './components/DefinitionList.vue';
+  export default {
+    name: 'App',
+    components: {
+      DefinitionForm,
+      DefinitionList
+    }
   }
-}
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
+<style scoped>
+  .definition-board {
+    border-style: solid;
+  };
 </style>
