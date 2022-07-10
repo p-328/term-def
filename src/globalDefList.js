@@ -11,22 +11,24 @@ export const store = reactive({
         localStorage.setItem(this.storage_key, JSON.stringify(this.definitionList));
     },
     addToList() { 
-        if (this.imgUrlBuf === '' || this.titleBuf === '' || this.textBuf === '') return;
         const validateImage = (img) => {
-            let validImage = true;
-            const image = new Image();
-            image.src = img;
-            image.onload = () => {
-                if (image.width > 0) {
-                    validImage = true;
-                }
+            let path_to_img = img.split('/');
+            if (path_to_img.length == 1) {
+                return false;
             }
-            image.onerror = () => {
-                validImage = false;
+            let source = path_to_img[path_to_img.length - 1].split('.');
+            if (source.length == 1) {
+                return false;
             }
-            return validImage;
+            let extension = source[source.length - 1];
+            return extension == 'png' || extension == 'jpg' || extension == 'jpeg' || extension == 'svg';
         };
-        if (!validateImage(this.imgUrlBuf)) return;
+        if (!validateImage(this.imgUrlBuf)) {
+            this.imgUrlBuf = '';
+            this.titleBuf = '';
+            this.textBuf = '';
+            return false;
+        }
         this.definitionList.push({
             id: uuid(),
             imgSrc: this.imgUrlBuf,
@@ -37,5 +39,6 @@ export const store = reactive({
         this.imgUrlBuf = '';
         this.titleBuf = '';
         this.textBuf = '';
+        return true;
     }
 });
